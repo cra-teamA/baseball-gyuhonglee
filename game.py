@@ -1,2 +1,38 @@
+from game_result import GameResult
+
+
 class Game:
-    pass
+    def __init__(self):
+        self._question = ""
+
+    @property
+    def question(self):
+        return self._question
+
+    @question.setter
+    def question(self, value):
+        self._question = value
+
+    def guess(self, guess_number) -> GameResult:
+        self._assert_illegal_value(guess_number)
+        if guess_number == self._question:
+            return GameResult(True, 3, 0)
+        return GameResult(False, 0, 0)
+
+    def _assert_illegal_value(self, guess_number):
+        if guess_number is None:
+            raise TypeError()
+
+        if len(guess_number) != 3:
+            raise TypeError()
+
+        if not guess_number.isdigit():
+            raise TypeError()
+
+        if self._is_duplicate_number(guess_number):
+            raise TypeError()
+
+    def _is_duplicate_number(self, guessNumber):
+        return guessNumber[0] == guessNumber[1] or \
+            guessNumber[0] == guessNumber[2] or \
+            guessNumber[1] == guessNumber[2]

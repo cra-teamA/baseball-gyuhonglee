@@ -5,11 +5,14 @@ class Game:
     def _assert_illegal_value(self, guess_number):
         if guess_number is None:
             raise TypeError()
+
         if len(guess_number) != 3:
             raise TypeError()
+
         for number in guess_number:
             if not ord('0') <= ord(number) <= ord('9'):
                 raise TypeError()
+
         if self._is_duplicate_number(guess_number):
             raise TypeError()
 

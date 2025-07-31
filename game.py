@@ -17,7 +17,20 @@ class Game:
         self._assert_illegal_value(guess_number)
         if guess_number == self._question:
             return GameResult(True, 3, 0)
-        return GameResult(False, 0, 0)
+
+        balls, strikes = self.calc_baseball(guess_number)
+
+        return GameResult(False, strikes, balls)
+
+    def calc_baseball(self, guess_number):
+        balls = 0
+        strikes = 0
+        for idx in range(len(guess_number)):
+            if guess_number[idx] == self._question[idx]:
+                strikes += 1
+            elif guess_number[idx] in self._question:
+                balls += 1
+        return balls, strikes
 
     def _assert_illegal_value(self, guess_number):
         if guess_number is None:
